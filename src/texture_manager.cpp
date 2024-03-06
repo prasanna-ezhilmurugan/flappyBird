@@ -1,23 +1,58 @@
 #include "../include/texture_manager.hpp"
+#include <SDL2/SDL_image.h>
+#include <iostream>
 
-  SDL_Texture* texture_manager::create_texture_or_throw(SDL_Renderer *renderer, std::string_view path){
-    SDL_Texture *texture{nullptr};
+texture_manager::texture_manager(SDL_Renderer *renderer)
+    : m_renderer{renderer}
+{
+}
 
-    SDL_Surface *surface = IMG_Load(path.data());
-    if (!surface)
+void texture_manager::load_texture(std::string_view path)
+{
+  // clear pre_existing texture
+  free();
+
+  SDL_Texture *newTexture{nullptr};
+
+  SDL_Surface *loadedSurface = IMG_Load(path.data());
+  if (!loadedSurface)
+  {
+    std::cout << "Unable to load image";
+  }
+  else
+  {
+    newTexture = SDL_CreateTextureFromSurface(m_renderer, loadedSurface);
+
+    if (!newTexture)
     {
-      std::cout << ("Failed") << "to load the img";
-      return nullptr;
+      std::cout << "Unable to create texture form the surface";
     }
     else
     {
-      texture = SDL_CreateTextureFromSurface(renderer, surface);
-      if (!texture)
-      {
-        throw std::runtime_error("Failed");
-        return nullptr;
-      }
-
-      return texture;
+      // getimage dimentions
+      m_width = loadedSurface->w;
+      m_height = loadedSurface->h;
     }
+
+    SDL_FreeSurface(loadedSurface);
   }
+  m_texture = newTexture;
+}
+
+void texture_manager::render(int x,int y )
+{
+  SDL_Rect renderQuad = {x, y, m_width, m_height};
+
+  SDL_RenderCopy(m_renderer, m_texture, NULL, &renderQuad);
+}
+
+void texture_manager::free()
+{
+  if (m_texture)
+  {
+    SDL_DestroyTexture(m_texture);
+    m_texture = nullptr;
+    m_height = 0;
+    m_width = 0;
+  }
+}

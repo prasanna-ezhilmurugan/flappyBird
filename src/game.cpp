@@ -37,7 +37,7 @@ namespace loader
 
     return renderer;
   }
-  
+
 } // namespace loader
 
 Game::Game()
@@ -56,7 +56,6 @@ Game::Game()
   }
 
   m_running = true;
-
 }
 
 void Game::handle_event()
@@ -66,7 +65,9 @@ void Game::handle_event()
     if (m_event.type == SDL_QUIT)
     {
       m_running = false;
-    } else {
+    }
+    else
+    {
       bird.handle_event(m_event);
     }
   }
@@ -77,13 +78,22 @@ void Game::render()
   SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
   SDL_RenderClear(m_renderer);
 
-  SDL_RenderCopy(m_renderer,texture_manager::create_texture_or_throw(m_renderer, config::background_sprite), NULL, NULL);
-  SDL_RenderCopy(m_renderer,texture_manager::create_texture_or_throw(m_renderer, config::bird_sprite), NULL, bird.move());
+  --scrolling_off_set;
+  if (scrolling_off_set < -m_background_texture.getWidth())
+  {
+    scrolling_off_set = 0;
+  }
 
+  m_background_texture.load_texture(config::background_sprite);
+  m_bird_texture.load_texture(config::bird_sprite);
+  m_background_texture.render(scrolling_off_set, 0);
+  m_background_texture.render(scrolling_off_set + m_background_texture.getWidth(), 0);
+  m_bird_texture.render(bird.move()->x, bird.move()->y);
   SDL_RenderPresent(m_renderer);
 }
 
-Game::~Game(){
+Game::~Game()
+{
   IMG_Quit();
   SDL_Quit();
 }
