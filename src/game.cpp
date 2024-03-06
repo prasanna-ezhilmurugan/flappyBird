@@ -88,7 +88,7 @@ void Game::render()
   m_bird_texture.load_texture(config::bird_sprite);
   m_background_texture.render(scrolling_off_set, 0);
   m_background_texture.render(scrolling_off_set + m_background_texture.getWidth(), 0);
-  m_bird_texture.render(bird.move()->x, bird.move()->y);
+  m_bird_texture.render(bird.update_pos()->x, bird.update_pos()->y);
   SDL_RenderPresent(m_renderer);
 }
 

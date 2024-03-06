@@ -2,7 +2,7 @@
 #include "bird.hpp"
 #include <SDL2/SDL.h>
 #include "texture_manager.hpp"
-
+#include <chrono>
 class Game
 {
 public:
