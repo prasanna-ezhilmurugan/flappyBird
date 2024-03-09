@@ -4,7 +4,7 @@
 
 namespace config
 {
-  constexpr int window_width{288};
+  constexpr int window_width{288 * 2};
   constexpr int window_height{512};
   constexpr int bird_width{34};
   constexpr int bird_height{24};

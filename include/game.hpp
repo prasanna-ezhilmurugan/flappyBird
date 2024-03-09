@@ -23,5 +23,5 @@ private:
   SDL_Event m_event;
   bool m_running{false};
   int scrolling_off_set{};
-
+  void render_background();
 };

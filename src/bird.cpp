@@ -7,7 +7,7 @@ Bird::Bird(SDL_Renderer *renderer)
   m_texture[1].load_texture(config::bird_midflap);
   m_texture[2].load_texture(config::bird_upflap);
   // Initialize the position
-  m_xpos = (config::window_width / 2) - (config::bird_width / 2);
+  m_xpos = (config::window_width - config::bird_width)/3;
   m_ypos = (config::window_height / 2) - (config::bird_height / 2);
 
   // Initilize the velocity
