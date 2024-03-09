@@ -6,6 +6,7 @@ int main()
   while (game.isRunning())
   {
     game.handle_event();
+    game.update();
     game.render();
   }
   return 0;

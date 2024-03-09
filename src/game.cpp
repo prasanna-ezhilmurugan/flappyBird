@@ -73,6 +73,10 @@ void Game::handle_event()
   }
 }
 
+void Game::update(){
+  bird.update();
+}
+
 void Game::render()
 {
   SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
@@ -85,10 +89,9 @@ void Game::render()
   }
 
   m_background_texture.load_texture(config::background_sprite);
-  m_bird_texture.load_texture(config::bird_sprite);
   m_background_texture.render(scrolling_off_set, 0);
   m_background_texture.render(scrolling_off_set + m_background_texture.getWidth(), 0);
-  m_bird_texture.render(bird.update_pos()->x, bird.update_pos()->y);
+  bird.render();
   SDL_RenderPresent(m_renderer);
 }
 

@@ -1,21 +1,26 @@
 #pragma once
 
 #include "config.hpp"
+#include "texture_manager.hpp"
 #include <SDL2/SDL.h>
 
 class Bird
 {
 public:
-
-  static const int8_t BIRD_VELOCITY = 5;
-  static const int8_t falling_constant = 2;
-  Bird();
+  Bird(SDL_Renderer *renderer);
   void handle_event(SDL_Event &event);
-  void jump();
-  SDL_Rect *update_pos();
+  void update();
+  void render();
 
 private:
-  int m_xpos{}, m_ypos{};
+  SDL_Renderer *m_renderer{nullptr};
+  // Test obj[] = { Test(1, 1), Test(2, 2), Test(3, 3) };
+  texture_manager m_texture[3] = {texture_manager(m_renderer), texture_manager(m_renderer), texture_manager(m_renderer)};
+  float m_xpos{}, m_ypos{};
   int m_xvel{}, m_yvel{};
-  int vertical_speed{};
+  float m_lastTick{};
+
+  const int JUMP_AMPLITUDE = 120;
+  // falls as a rate fo 100 pixels per second
+  const int FALLING_VELOCITY = 100;
 };

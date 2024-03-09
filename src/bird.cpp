@@ -1,8 +1,11 @@
 #include "../include/bird.hpp"
-#include "bird.hpp"
 
-Bird::Bird()
+Bird::Bird(SDL_Renderer *renderer)
+    : m_renderer{renderer}
 {
+  m_texture[0].load_texture(config::bird_downflap);
+  m_texture[1].load_texture(config::bird_midflap);
+  m_texture[2].load_texture(config::bird_upflap);
   // Initialize the position
   m_xpos = (config::window_width / 2) - (config::bird_width / 2);
   m_ypos = (config::window_height / 2) - (config::bird_height / 2);
@@ -19,8 +22,7 @@ void Bird::handle_event(SDL_Event &event)
     switch (event.key.keysym.sym)
     {
     case SDLK_SPACE:
-      vertical_speed = BIRD_VELOCITY;
-      jump();
+      m_ypos -= JUMP_AMPLITUDE;
       break;
 
     default:
@@ -29,18 +31,14 @@ void Bird::handle_event(SDL_Event &event)
   }
 }
 
-void Bird::jump()
+void Bird::update()
 {
-
+  float delta_time = (SDL_GetTicks() - m_lastTick) / 1000.0f;
+  m_lastTick = SDL_GetTicks();
+  m_ypos += FALLING_VELOCITY* delta_time ;
 }
 
-SDL_Rect *Bird::update_pos()
+void Bird::render()
 {
-  SDL_Rect *pos{new SDL_Rect};
-
-  pos->x = m_xpos;
-  pos->y = m_ypos;
-  pos->w = config::bird_width;
-  pos->h = config::bird_height;
-  return pos;
+  m_texture[1].render(m_xpos, m_ypos);
 }
