@@ -56,6 +56,9 @@ Game::Game()
   }
 
   m_running = true;
+  //initializing the texture using the texture_manager's load_texture function 
+  m_background_texture.load_texture(config::background_sprite);
+  m_base_texture.load_texture(config::base_sprite);
 }
 
 void Game::handle_event()
@@ -73,7 +76,8 @@ void Game::handle_event()
   }
 }
 
-void Game::update(){
+void Game::update()
+{
   bird.update();
 }
 
@@ -88,9 +92,9 @@ void Game::render()
     scrolling_off_set = 0;
   }
 
-  m_background_texture.load_texture(config::background_sprite);
   m_background_texture.render(scrolling_off_set, 0);
   m_background_texture.render(scrolling_off_set + m_background_texture.getWidth(), 0);
+  m_base_texture.render(0, config::window_height-m_base_texture.getHeight());
   bird.render();
   SDL_RenderPresent(m_renderer);
 }

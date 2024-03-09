@@ -11,10 +11,9 @@ namespace config
 
   constexpr std::string_view projectName{"flappyBird"};
   constexpr std::string_view background_sprite{"../assets/sprites/background-day.png"};
+  constexpr std::string_view base_sprite{"../assets/sprites/base.png"};
   constexpr std::string_view bird_downflap{"../assets/sprites/bluebird-downflap.png"};
   constexpr std::string_view bird_midflap{"../assets/sprites/bluebird-midflap.png"};
   constexpr std::string_view bird_upflap{"../assets/sprites/bluebird-upflap.png"};
 
-  constexpr int fps{60};
-  constexpr float frame_target_time{1000 / fps};
 }

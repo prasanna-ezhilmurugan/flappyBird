@@ -19,6 +19,7 @@ private:
   SDL_Renderer *m_renderer{nullptr};
   Bird bird{m_renderer};
   texture_manager m_background_texture{m_renderer};
+  texture_manager m_base_texture{m_renderer};
   SDL_Event m_event;
   bool m_running{false};
   int scrolling_off_set{};
