@@ -1,6 +1,7 @@
 #pragma once
 #include "bird.hpp"
 #include "texture_manager.hpp"
+#include "scoreboard.hpp"
 #include "pipe.hpp"
 #include <SDL2/SDL.h>
 #include <vector>
@@ -29,4 +30,6 @@ private:
   int scrolling_off_set{};
   float m_lastTick{};
   void render_background();
+
+  Scoreboard scoreboard{m_renderer};
 };

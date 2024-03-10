@@ -16,6 +16,5 @@ class Pipe{
   texture_manager m_texture{m_renderer};
 
   float m_xpos{}, m_ypos{};
-  float m_lastTicks{};
   int MOVING_VELOCITY{180};
 };

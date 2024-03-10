@@ -82,6 +82,7 @@ void Game::update()
   float delta_time = (SDL_GetTicks() - m_lastTick) / 1000.0f;
   m_lastTick = SDL_GetTicks();
   bird.update(delta_time);
+
   if (++pipe_gap % 80 == 0)
   {
     pipes.emplace_back(m_renderer, -rand() % 260);
@@ -95,12 +96,11 @@ void Game::update()
 
     pipe.update(delta_time);
 
-    if (SDL_IntersectRect(&bird_rect, &pipe_lower_rect, &collision_rect))
+    if (SDL_IntersectRect(&bird_rect, &pipe_lower_rect, &collision_rect) || SDL_IntersectRect(&bird_rect, &pipe_upper_rect, &collision_rect))
     {
       m_running = false;
-    }
-    if(SDL_IntersectRect(&bird_rect, &pipe_upper_rect, &collision_rect)){
-      m_running =false;
+    } else{
+      scoreboard.update();
     }
   }
 }
@@ -133,6 +133,7 @@ void Game::render()
     pipe.render();
   }
   bird.render();
+  scoreboard.render();
   SDL_RenderPresent(m_renderer);
 }
 
