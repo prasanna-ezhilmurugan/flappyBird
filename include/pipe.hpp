@@ -1,0 +1,19 @@
+#pragma once
+
+#include "texture_manager.hpp"
+#include <SDL2/SDL.h>
+
+class Pipe{
+  public:
+  Pipe(SDL_Renderer* renderer);
+  void update(float delta_time);
+  void render();
+
+  private:
+  SDL_Renderer* m_renderer{nullptr};
+  texture_manager m_texture{m_renderer};
+
+  float m_xpos{}, m_ypos{};
+  float m_lastTicks{};
+  int MOVING_VELOCITY{180};
+};

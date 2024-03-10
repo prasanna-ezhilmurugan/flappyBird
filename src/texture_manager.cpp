@@ -39,11 +39,11 @@ void texture_manager::load_texture(std::string_view path)
   m_texture = newTexture;
 }
 
-void texture_manager::render(int x,int y )
+void texture_manager::render(int x, int y, SDL_RendererFlip renderFlip)
 {
   SDL_Rect renderQuad = {x, y, m_width, m_height};
 
-  SDL_RenderCopy(m_renderer, m_texture, NULL, &renderQuad);
+  SDL_RenderCopyEx(m_renderer, m_texture, NULL, &renderQuad, 0.0, NULL, renderFlip);
 }
 
 void texture_manager::free()

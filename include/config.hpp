@@ -4,7 +4,7 @@
 
 namespace config
 {
-  constexpr int window_width{288 * 2};
+  constexpr int window_width{288 * 3};
   constexpr int window_height{512};
   constexpr int bird_width{34};
   constexpr int bird_height{24};
@@ -16,4 +16,5 @@ namespace config
   constexpr std::string_view bird_midflap{"../assets/sprites/bluebird-midflap.png"};
   constexpr std::string_view bird_upflap{"../assets/sprites/bluebird-upflap.png"};
 
+  constexpr std::string_view pipe{"../assets/sprites/pipe-green.png"};
 }

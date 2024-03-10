@@ -78,7 +78,10 @@ void Game::handle_event()
 
 void Game::update()
 {
-  bird.update();
+  float delta_time = (SDL_GetTicks() - m_lastTick) / 1000.0f;
+  m_lastTick = SDL_GetTicks();
+  bird.update(delta_time);
+  // pipe.update(delta_time);
 }
 
 void Game::render_background()
@@ -86,8 +89,10 @@ void Game::render_background()
   m_background_texture.render(scrolling_off_set, 0);
   m_background_texture.render(scrolling_off_set + m_background_texture.getWidth(), 0);
   m_background_texture.render(scrolling_off_set + 2 * m_background_texture.getWidth(), 0);
+  m_background_texture.render(scrolling_off_set + 3 * m_background_texture.getWidth(), 0);
   m_base_texture.render(0, config::window_height - m_base_texture.getHeight());
   m_base_texture.render(m_base_texture.getWidth(), config::window_height - m_base_texture.getHeight());
+  m_base_texture.render(2 * m_base_texture.getWidth(), config::window_height - m_base_texture.getHeight());
 }
 
 void Game::render()
@@ -101,6 +106,7 @@ void Game::render()
     scrolling_off_set = 0;
   }
   render_background();
+  // pipe.render();
   bird.render();
   SDL_RenderPresent(m_renderer);
 }

@@ -1,8 +1,9 @@
 #pragma once
 #include "bird.hpp"
-#include <SDL2/SDL.h>
 #include "texture_manager.hpp"
-#include <chrono>
+#include "pipe.hpp"
+#include <SDL2/SDL.h>
+#include <stack>
 class Game
 {
 public:
@@ -17,11 +18,15 @@ public:
 private:
   SDL_Window *m_window{nullptr};
   SDL_Renderer *m_renderer{nullptr};
-  Bird bird{m_renderer};
+  SDL_Event m_event;
   texture_manager m_background_texture{m_renderer};
   texture_manager m_base_texture{m_renderer};
-  SDL_Event m_event;
+
+  Bird bird{m_renderer};
+  std::stack<Pipe> pipe;
+
   bool m_running{false};
   int scrolling_off_set{};
+  float m_lastTick{};
   void render_background();
 };

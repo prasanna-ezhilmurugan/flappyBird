@@ -31,14 +31,14 @@ void Bird::handle_event(SDL_Event &event)
   }
 }
 
-void Bird::update()
+void Bird::update(float delta_time)
 {
-  float delta_time = (SDL_GetTicks() - m_lastTick) / 1000.0f;
-  m_lastTick = SDL_GetTicks();
   m_ypos += FALLING_VELOCITY* delta_time ;
 }
 
 void Bird::render()
 {
-  m_texture[1].render(m_xpos, m_ypos);
+  m_texture[frame_count].render(m_xpos, m_ypos);
+  ++frame_count;
+  frame_count = frame_count%3;
 }

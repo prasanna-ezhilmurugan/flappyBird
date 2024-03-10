@@ -10,7 +10,7 @@ public:
   void load_texture(std::string_view path);
 
   void free();
-  void render(int x = 0, int y = 0);
+  void render(int x = 0, int y = 0, SDL_RendererFlip renderFlip = SDL_FLIP_NONE);
 
   int16_t getHeight() { return m_height; };
   int16_t getWidth() { return m_width; };
