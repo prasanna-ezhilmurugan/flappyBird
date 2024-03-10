@@ -11,6 +11,7 @@ public:
   void handle_event(SDL_Event &event);
   void update(float delta_time);
   void render();
+  SDL_Rect getRect();
 
 private:
   SDL_Renderer *m_renderer{nullptr};

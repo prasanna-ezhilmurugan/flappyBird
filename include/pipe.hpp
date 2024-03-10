@@ -5,9 +5,11 @@
 
 class Pipe{
   public:
-  Pipe(SDL_Renderer* renderer);
+  Pipe(SDL_Renderer* renderer, float ypos);
   void update(float delta_time);
   void render();
+  SDL_Rect getUpperRect();
+  SDL_Rect getLowerRect();
 
   private:
   SDL_Renderer* m_renderer{nullptr};

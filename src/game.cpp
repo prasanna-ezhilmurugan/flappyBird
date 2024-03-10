@@ -78,10 +78,31 @@ void Game::handle_event()
 
 void Game::update()
 {
+  srand(time(NULL));
   float delta_time = (SDL_GetTicks() - m_lastTick) / 1000.0f;
   m_lastTick = SDL_GetTicks();
   bird.update(delta_time);
-  // pipe.update(delta_time);
+  if (++pipe_gap % 80 == 0)
+  {
+    pipes.emplace_back(m_renderer, -rand() % 260);
+  }
+
+  for (auto &pipe : pipes)
+  {
+    bird_rect = bird.getRect();
+    pipe_upper_rect = pipe.getUpperRect();
+    pipe_lower_rect = pipe.getLowerRect();
+
+    pipe.update(delta_time);
+
+    if (SDL_IntersectRect(&bird_rect, &pipe_lower_rect, &collision_rect))
+    {
+      m_running = false;
+    }
+    if(SDL_IntersectRect(&bird_rect, &pipe_upper_rect, &collision_rect)){
+      m_running =false;
+    }
+  }
 }
 
 void Game::render_background()
@@ -107,6 +128,10 @@ void Game::render()
   }
   render_background();
   // pipe.render();
+  for (auto &pipe : pipes)
+  {
+    pipe.render();
+  }
   bird.render();
   SDL_RenderPresent(m_renderer);
 }

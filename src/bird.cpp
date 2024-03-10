@@ -42,3 +42,13 @@ void Bird::render()
   ++frame_count;
   frame_count = frame_count%3;
 }
+
+SDL_Rect Bird::getRect(){
+  SDL_Rect rect{};
+  rect.x = m_xpos;
+  rect.y = m_ypos;
+  rect.w = config::bird_width;
+  rect.h = config::bird_height;
+
+  return rect;
+}
